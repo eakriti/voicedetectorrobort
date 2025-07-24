@@ -1,0 +1,161 @@
+<!-- <input type="text" id="output" placeholder="Speak something..." />
+<button onclick="startListening()">🎙️ Start</button>
+
+<script>
+    // Step 1: Check support
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();//here we detecting the voice
+
+        // Step 2: Set language
+        recognition.lang = 'en-US'; // You can also use "hi-IN" for Hindi
+
+        // Step 3: What happens when voice is detected
+        recognition.addEventListener("result", function (event) {
+            const text = event.results[0][0].transcript;
+            document.getElementById("output").value = text;
+        });
+
+        // Step 4: Start recognition
+        function startListening() {
+            recognition.start();
+        }
+    } else {
+        alert("Speech Recognition not supported in your browser.");
+    }
+</script> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Voice Robot AI</title>
+</head>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f0f4f8;
+        text-align: center;
+        padding: 40px;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    .container {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .robot {
+        width: 150px;
+        height: 150px;
+        background: #333;
+        margin: 20px auto;
+        border-radius: 20px;
+        position: relative;
+        padding-top: 30px;
+        color: white;
+    }
+
+    .eye {
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 30px;
+    }
+
+    .left {
+        left: 30px;
+    }
+
+    .right {
+        right: 30px;
+    }
+
+    .mouth {
+        margin-top: 70px;
+        font-size: 14px;
+        color: #0f0;
+        padding: 5px;
+    }
+
+    textarea {
+        width: 90%;
+        height: 100px;
+        margin-top: 20px;
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+
+    button:hover {
+        background: #45a049;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <h1>🤖 Voice Robot AI</h1>
+
+        <div class="robot">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="mouth" id="robotMouth">I’m listening...</div>
+        </div>
+
+        <textarea id="output" placeholder="Speak something..."></textarea>
+        <br>
+        <button id="startBtn">🎙️ Start Talking</button>
+    </div>
+
+    <script>
+        // Step 1: Web Speech API Setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;     // Step 1: Check support
+        const recognition = new SpeechRecognition(); //here we detecting the voice
+
+        // Step 2: Get elements
+        const startBtn = document.getElementById("startBtn");
+        const output = document.getElementById("output");
+        const robotMouth = document.getElementById("robotMouth");
+
+        // Step 3: Button click => start listening
+        startBtn.addEventListener("click", () => {
+            recognition.start();
+            robotMouth.textContent = "👂 Listening...";
+            startBtn.textContent = "Listening...";
+        });
+
+        // Step 4: Voice result
+        recognition.addEventListener("result", function (event) {
+            const text = event.results[0][0].transcript;
+            output.value = text;
+            robotMouth.textContent = "You said: " + text;
+        });
+
+        // Step 5: End of speech
+        recognition.addEventListener("end", () => {
+            startBtn.textContent = "🎙️ Start Talking";
+        });
+
+    </script>
+</body>
+
+</html>
